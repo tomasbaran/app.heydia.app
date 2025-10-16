@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "heydia-dev",
+    "dev": "heydia-dev",
+    "prod": "heydia-prod"
+  },
+  "targets": {},
+  "etags": {}
+}
