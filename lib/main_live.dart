@@ -1,4 +1,4 @@
-import 'firebase_options_live.dart';
+import 'core/envs/firebase_options_live.dart';
 import 'main.dart';
 
 void main() async {
