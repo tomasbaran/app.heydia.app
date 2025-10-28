@@ -1,16 +1,1 @@
-{
-  "hosting": {
-    "public": "build/web",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
-    ]
-  }
-}
+{"hosting":[{"target":"default","public":"build/web","ignore":["firebase.json","**/.*","**/node_modules/**"],"rewrites":[{"source":"**","destination":"/index.html"}]}],"flutter":{"platforms":{"dart":{"lib/firebase_options_dev.dart":{"projectId":"heydia-dev","configurations":{"web":"1:12351875139:web:3fd050f33e3297beaaccf6"}},"lib/firebase_options_live.dart":{"projectId":"heydia-live","configurations":{"web":"1:1021824411217:web:cbda48e44bab5bbabb3a70"}}}}}}

@@ -1,7 +1,11 @@
+import 'package:app_heydia_app/core/app_config.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MainApp());
+void runMainApp(FirebaseOptions firebaseOptions) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: firebaseOptions);
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {
@@ -9,8 +13,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(body: Center(child: Text('Hello World!'))),
+    return MaterialApp(
+      home: Scaffold(body: Center(child: Text('Hi, ${AppConfig.appName}!'))),
     );
   }
 }

@@ -1,9 +1,18 @@
 {
   "projects": {
     "default": "heydia-dev",
-    "dev": "heydia-dev",
-    "prod": "heydia-prod"
+    "heydia-live": "heydia-live"
   },
-  "targets": {},
-  "etags": {}
+  "targets": {
+    "heydia-dev": {
+      "hosting": {
+        "default": ["flutter-heydia-dev"]
+      }
+    },
+    "heydia-live": {
+      "hosting": {
+        "default": ["flutter-heydia-live"]
+      }
+    }
+  }
 }
