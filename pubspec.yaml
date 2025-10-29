@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_core: ^4.2.0
+  mockito: ^5.5.1
 
 dev_dependencies:
   flutter_test:
