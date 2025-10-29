@@ -1,4 +1,5 @@
+import 'package:app_heydia_app/features/login/domain/repo_interfaces/auth_repo_interface.dart';
 import 'package:mockito/annotations.dart';
 
-@GenerateNiceMocks([MockSpec<AuthRepo>()])
+@GenerateNiceMocks([MockSpec<AuthRepoInterface>()])
 void main() {}

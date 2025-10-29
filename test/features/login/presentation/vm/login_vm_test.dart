@@ -2,12 +2,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:app_heydia_app/features/login/presentation/vm/login_vm.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../../../core/mocks/mocks_generator.mocks.dart';
+
 void main() {
-  late MockAuthRepo mockAuthRepo;
+  late MockAuthRepoInterface mockAuthRepo;
   late LoginVM sut;
 
   setUp(() {
-    mockAuthRepo = MockAuthRepo();
+    mockAuthRepo = MockAuthRepoInterface();
     sut = LoginVM(mockAuthRepo);
   });
 
@@ -16,13 +18,13 @@ void main() {
       'WHEN login is called THEN should call auth repository login method',
       () async {
         // Arrange
-        when(mockAuthRepo.login(any)).thenAnswer((_) async => true);
+        when(mockAuthRepo.login(any, any)).thenAnswer((_) async => true);
 
         // Act
         await sut.login('email', 'password');
 
         // Assert
-        verify(mockAuthRepo.login(any));
+        verify(mockAuthRepo.login(any, any));
       },
     );
 
@@ -30,13 +32,13 @@ void main() {
       'WHEN logout is called THEN should call auth repository logout method',
       () async {
         // Arrange
-        when(mockAuthRepo.logout(any)).thenAnswer((_) async => true);
+        when(mockAuthRepo.logout()).thenAnswer((_) async => true);
 
         // Act
         await sut.logout();
 
         // Assert
-        verify(mockAuthRepo.logout(any));
+        verify(mockAuthRepo.logout());
       },
     );
   });
