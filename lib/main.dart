@@ -1,4 +1,4 @@
-import 'package:app_heydia_app/core/app_config.dart';
+import 'package:dia_app/core/app_config.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 

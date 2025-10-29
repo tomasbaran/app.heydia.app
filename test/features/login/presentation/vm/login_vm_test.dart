@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:app_heydia_app/features/login/presentation/vm/login_vm.dart';
+import 'package:dia_app/features/login/presentation/vm/login_vm.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../core/mocks/mocks_generator.mocks.dart';
