@@ -4,7 +4,8 @@ class AppConfig {
     defaultValue: 'unknown',
   );
   static String get appName => 'Dia ($flavor)';
-
   static bool get isDev => flavor == 'dev';
   static bool get isLive => flavor == 'live';
+
+  static String get isDiaForMeUrl => 'https://form.typeform.com/to/JHAvzNQy';
 }

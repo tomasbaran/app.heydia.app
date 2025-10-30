@@ -1,6 +1,7 @@
-import 'package:dia_app/core/app_config.dart';
+import 'package:dia_app/features/login/presentation/widgets/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void runMainApp(FirebaseOptions firebaseOptions) async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +15,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(body: Center(child: Text('Hi, ${AppConfig.appName}!'))),
+      theme: ThemeData(textTheme: GoogleFonts.interTextTheme()),
+      home: LoginScreen(),
     );
   }
 }

@@ -5,4 +5,7 @@ class ErrorsStrings {
   static const String failedToLogout = 'Failed to logout';
   static const String failedToDeleteUser = 'Failed to delete user';
   static const String signupDisabled = 'New signups are currently disabled';
+
+  // URL Service Errors
+  static const String couldNotLaunchUrl = 'Could not launch url: ';
 }
