@@ -1,15 +1,16 @@
 part of 'login_screen.dart';
 
 class _LoginPane extends StatelessWidget {
-  const _LoginPane();
+  final bool isVerticalLayout;
+  const _LoginPane({this.isVerticalLayout = false});
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
-        top: AppDimensions.space8,
+        top: isVerticalLayout ? AppDimensions.space0 : AppDimensions.space8,
         right: AppDimensions.space8,
         bottom: AppDimensions.space8,
-        left: AppDimensions.space0,
+        left: isVerticalLayout ? AppDimensions.space8 : AppDimensions.space0,
       ),
       decoration: BoxDecoration(
         color: AppColors.neutral300,

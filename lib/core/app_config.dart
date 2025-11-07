@@ -8,4 +8,7 @@ class AppConfig {
   static bool get isLive => flavor == 'live';
 
   static String get isDiaForMeUrl => 'https://form.typeform.com/to/JHAvzNQy';
+
+  // Mobile breakpoint
+  static const double mobileBreakpoint = 768;
 }

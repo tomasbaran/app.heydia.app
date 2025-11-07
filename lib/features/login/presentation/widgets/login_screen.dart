@@ -17,15 +17,27 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final isVerticalLayout = screenSize.height > screenSize.width;
+
     return Scaffold(
-      body: Row(
-        children: [
-          // Left Panel - Dark Theme
-          const Expanded(flex: 2, child: _DiaDarkPane()),
-          // Right Panel - Light Theme
-          const Expanded(flex: 1, child: _LoginPane()),
-        ],
-      ),
+      body: isVerticalLayout
+          ? Column(
+              children: [
+                // Top Panel - Dark Theme (vertical layout)
+                Flexible(flex: 2, child: _DiaDarkPane()),
+                // Bottom Panel - Light Theme (vertical layout)
+                Flexible(flex: 1, child: _LoginPane(isVerticalLayout: true)),
+              ],
+            )
+          : Row(
+              children: [
+                // Left Panel - Dark Theme (horizontal layout)
+                Expanded(flex: 2, child: _DiaDarkPane()),
+                // Right Panel - Light Theme (horizontal layout)
+                Expanded(flex: 1, child: _LoginPane()),
+              ],
+            ),
     );
   }
 }
