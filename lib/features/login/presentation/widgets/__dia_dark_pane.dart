@@ -14,8 +14,10 @@ class _DiaDarkPaneState extends State<_DiaDarkPane> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(AppDimensions.space8),
-      decoration: const BoxDecoration(
-        color: AppColors.neutral900,
+      decoration: BoxDecoration(
+        color: AppConfig.isLive
+            ? AppColors.neutral900
+            : AppColors.primaryDevColor,
         borderRadius: BorderRadius.all(Radius.circular(AppDimensions.radius52)),
       ),
       child: Padding(
@@ -29,7 +31,14 @@ class _DiaDarkPaneState extends State<_DiaDarkPane> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Dia Logo
-            Text(AppStrings.dia, style: AppTheme.headlineMedium),
+            Text(
+              AppConfig.appName,
+              style: AppTheme.headlineMedium.copyWith(
+                color: AppConfig.isLive
+                    ? AppColors.neutral0
+                    : AppColors.secondaryDevColor,
+              ),
+            ),
             const Spacer(),
             // Tagline
             Center(

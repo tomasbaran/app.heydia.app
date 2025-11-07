@@ -3,7 +3,7 @@ class AppConfig {
     'flavor',
     defaultValue: 'unknown',
   );
-  static String get appName => 'Dia ($flavor)';
+  static String get appName => isLive ? 'Dia' : 'Dia ($flavor)';
   static bool get isDev => flavor == 'dev';
   static bool get isLive => flavor == 'live';
 

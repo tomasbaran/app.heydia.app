@@ -18,4 +18,6 @@ class AppColors {
   static const Color neutral1000 = Color(0xFF000000); // Pure black
 
   static const Color disabledColor = Colors.red;
+  static const Color primaryDevColor = Color.fromARGB(255, 0, 128, 13);
+  static const Color secondaryDevColor = Color.fromARGB(255, 255, 215, 16);
 }
