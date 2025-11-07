@@ -15,6 +15,7 @@ class AppDimensions {
   static const double radius52 = 52;
 
   // Spacing values (for SizedBox, padding, margin)
+  static const double space0 = 0;
   static const double space4 = 4;
   static const double space8 = 8;
   static const double space12 = 12;
