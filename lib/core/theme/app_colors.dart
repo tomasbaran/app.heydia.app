@@ -16,4 +16,6 @@ class AppColors {
   static const Color neutral900 = Color(0xFF212121); // Near black
   static const Color neutral950 = Color(0xFF1A1A1A); // Almost black
   static const Color neutral1000 = Color(0xFF000000); // Pure black
+
+  static const Color disabledColor = Colors.red;
 }

@@ -55,6 +55,14 @@ class AppTheme {
         fontWeight: FontWeight.w300,
       );
 
+  static TextStyle get ctaTitle => TextStyle(
+    color: AppColors.neutral0,
+    fontSize: 16,
+    fontWeight: FontWeight.w700,
+    letterSpacing: 1.2,
+    height: 1.3,
+  );
+
   static TextStyle get labelSmall =>
       _baseTextTheme.labelSmall?.copyWith(
         fontSize: 14,

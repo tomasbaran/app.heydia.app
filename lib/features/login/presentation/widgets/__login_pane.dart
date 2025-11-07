@@ -12,7 +12,7 @@ class _LoginPane extends StatelessWidget {
         left: AppDimensions.space0,
       ),
       decoration: BoxDecoration(
-        color: AppColors.neutral200,
+        color: AppColors.neutral300,
         borderRadius: BorderRadius.all(Radius.circular(AppDimensions.radius52)),
       ),
       child: Padding(

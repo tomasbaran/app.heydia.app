@@ -3,7 +3,7 @@ import 'package:dia_app/core/theme/app_dimensions.dart';
 import 'package:dia_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
-class AppTextFormField extends StatelessWidget {
+class AppTextFormField extends StatefulWidget {
   final bool obscureText;
   final String? hintText;
   final TextStyle? hintStyle;
@@ -36,45 +36,64 @@ class AppTextFormField extends StatelessWidget {
   });
 
   @override
+  State<AppTextFormField> createState() => _AppTextFormFieldState();
+}
+
+class _AppTextFormFieldState extends State<AppTextFormField> {
+  bool _isHovered = false;
+
+  @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      obscureText: obscureText,
-      controller: controller,
-      validator: validator,
-      onSaved: onSaved,
-      onChanged: onChanged,
-      keyboardType: keyboardType,
-      enabled: enabled,
-      maxLines: obscureText ? 1 : maxLines,
-      minLines: obscureText ? 1 : minLines,
-      style: style ?? AppTheme.bodyMedium,
-      decoration: decoration ??
-          InputDecoration(
-            filled: true,
-            fillColor: AppColors.neutral0,
-            hintText: hintText,
-            hintStyle: hintStyle ??
-                AppTheme.bodyMedium.copyWith(
-                  color: AppColors.neutral400,
-                ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(AppDimensions.radius8),
-              borderSide: BorderSide.none,
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(AppDimensions.radius8),
-              borderSide: BorderSide.none,
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(AppDimensions.radius8),
-              borderSide: BorderSide.none,
-            ),
-            contentPadding: EdgeInsets.symmetric(
-              horizontal: AppDimensions.space16,
-              vertical: AppDimensions.space12,
-            ),
-          ),
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: TextFormField(
+        obscureText: widget.obscureText,
+        controller: widget.controller,
+        validator: widget.validator,
+        onSaved: widget.onSaved,
+        onChanged: widget.onChanged,
+        keyboardType: widget.keyboardType,
+        enabled: widget.enabled,
+        maxLines: widget.obscureText ? 1 : widget.maxLines,
+        minLines: widget.obscureText ? 1 : widget.minLines,
+        style: widget.style ?? AppTheme.bodyMedium,
+        decoration: (widget.decoration ?? InputDecoration()).copyWith(
+          filled: widget.decoration?.filled ?? true,
+          fillColor:
+              widget.decoration?.fillColor ??
+              (_isHovered ? AppColors.neutral0 : AppColors.neutral200),
+          hintText: widget.decoration?.hintText ?? widget.hintText,
+          hintStyle:
+              widget.decoration?.hintStyle ??
+              widget.hintStyle ??
+              AppTheme.bodyMedium.copyWith(color: AppColors.neutral600),
+          border:
+              widget.decoration?.border ??
+              OutlineInputBorder(
+                borderRadius: BorderRadius.circular(AppDimensions.radius16),
+                borderSide: BorderSide.none,
+              ),
+          enabledBorder:
+              widget.decoration?.enabledBorder ??
+              OutlineInputBorder(
+                borderRadius: BorderRadius.circular(AppDimensions.radius16),
+                borderSide: BorderSide.none,
+              ),
+          focusedBorder:
+              widget.decoration?.focusedBorder ??
+              OutlineInputBorder(
+                borderRadius: BorderRadius.circular(AppDimensions.radius16),
+                borderSide: BorderSide.none,
+              ),
+          contentPadding:
+              widget.decoration?.contentPadding ??
+              EdgeInsets.symmetric(
+                horizontal: AppDimensions.space16,
+                vertical: AppDimensions.space20,
+              ),
+        ),
+      ),
     );
   }
 }
-
