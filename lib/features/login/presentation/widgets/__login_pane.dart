@@ -29,7 +29,7 @@ class _LoginPane extends StatelessWidget {
             AppTextFormField(obscureText: true, hintText: AppStrings.password),
             SizedBox(height: AppDimensions.space24),
             // Login Button
-            AppCta(onPressed: () {}, text: AppStrings.login),
+            AppLoginCta(onPressed: () {}, text: AppStrings.login),
           ],
         ),
       ),

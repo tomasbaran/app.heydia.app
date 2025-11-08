@@ -63,6 +63,12 @@ class AppTheme {
     height: 1.3,
   );
 
+  static TextStyle get paneButtonLabel => TextStyle(
+    color: AppColors.neutral700,
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+  );
+
   static TextStyle get labelSmall =>
       _baseTextTheme.labelSmall?.copyWith(
         fontSize: 14,

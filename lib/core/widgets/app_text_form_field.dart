@@ -5,34 +5,12 @@ import 'package:flutter/material.dart';
 
 class AppTextFormField extends StatefulWidget {
   final bool obscureText;
-  final String? hintText;
-  final TextStyle? hintStyle;
-  final TextStyle? style;
-  final InputDecoration? decoration;
-  final TextEditingController? controller;
-  final String? Function(String?)? validator;
-  final void Function(String?)? onSaved;
-  final void Function(String)? onChanged;
-  final TextInputType? keyboardType;
-  final bool enabled;
-  final int? maxLines;
-  final int? minLines;
+  final String hintText;
 
   const AppTextFormField({
     super.key,
     this.obscureText = false,
-    this.hintText,
-    this.hintStyle,
-    this.style,
-    this.decoration,
-    this.controller,
-    this.validator,
-    this.onSaved,
-    this.onChanged,
-    this.keyboardType,
-    this.enabled = true,
-    this.maxLines,
-    this.minLines,
+    required this.hintText,
   });
 
   @override
@@ -49,49 +27,30 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
       onExit: (_) => setState(() => _isHovered = false),
       child: TextFormField(
         obscureText: widget.obscureText,
-        controller: widget.controller,
-        validator: widget.validator,
-        onSaved: widget.onSaved,
-        onChanged: widget.onChanged,
-        keyboardType: widget.keyboardType,
-        enabled: widget.enabled,
-        maxLines: widget.obscureText ? 1 : widget.maxLines,
-        minLines: widget.obscureText ? 1 : widget.minLines,
-        style: widget.style ?? AppTheme.bodyMedium,
-        decoration: (widget.decoration ?? InputDecoration()).copyWith(
-          filled: widget.decoration?.filled ?? true,
-          fillColor:
-              widget.decoration?.fillColor ??
-              (_isHovered ? AppColors.neutral0 : AppColors.neutral200),
-          hintText: widget.decoration?.hintText ?? widget.hintText,
-          hintStyle:
-              widget.decoration?.hintStyle ??
-              widget.hintStyle ??
-              AppTheme.bodyMedium.copyWith(color: AppColors.neutral600),
-          border:
-              widget.decoration?.border ??
-              OutlineInputBorder(
-                borderRadius: BorderRadius.circular(AppDimensions.radius16),
-                borderSide: BorderSide.none,
-              ),
-          enabledBorder:
-              widget.decoration?.enabledBorder ??
-              OutlineInputBorder(
-                borderRadius: BorderRadius.circular(AppDimensions.radius16),
-                borderSide: BorderSide.none,
-              ),
-          focusedBorder:
-              widget.decoration?.focusedBorder ??
-              OutlineInputBorder(
-                borderRadius: BorderRadius.circular(AppDimensions.radius16),
-                borderSide: BorderSide.none,
-              ),
-          contentPadding:
-              widget.decoration?.contentPadding ??
-              EdgeInsets.symmetric(
-                horizontal: AppDimensions.space16,
-                vertical: AppDimensions.space20,
-              ),
+        maxLines: widget.obscureText ? 1 : null,
+        minLines: widget.obscureText ? 1 : null,
+        style: AppTheme.bodyMedium,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: _isHovered ? AppColors.neutral0 : AppColors.neutral200,
+          hintText: widget.hintText,
+          hintStyle: AppTheme.bodyMedium.copyWith(color: AppColors.neutral600),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppDimensions.radius16),
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppDimensions.radius16),
+            borderSide: BorderSide.none,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(AppDimensions.radius16),
+            borderSide: BorderSide.none,
+          ),
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: AppDimensions.space16,
+            vertical: AppDimensions.space20,
+          ),
         ),
       ),
     );
