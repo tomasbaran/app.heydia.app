@@ -1,6 +1,7 @@
 class AppDimensions {
   // User pane width
   static const double paneWidth280 = 280;
+  static const double paneWidth320 = 320;
 
   // Radius values
   static const double radius4 = 4;

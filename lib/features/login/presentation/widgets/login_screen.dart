@@ -33,9 +33,12 @@ class LoginScreen extends StatelessWidget {
           : Row(
               children: [
                 // Left Panel - Dark Theme (horizontal layout)
-                Expanded(flex: 2, child: _DiaDarkPane()),
+                Expanded(child: _DiaDarkPane()),
                 // Right Panel - Light Theme (horizontal layout)
-                Expanded(flex: 1, child: _LoginPane()),
+                SizedBox(
+                  width: AppDimensions.paneWidth320,
+                  child: _LoginPane(),
+                ),
               ],
             ),
     );
