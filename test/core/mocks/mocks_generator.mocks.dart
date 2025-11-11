@@ -8,8 +8,9 @@ import 'dart:async' as _i3;
 import 'package:dia_app/core/utils/result.dart' as _i4;
 import 'package:dia_app/features/login/domain/repo_interfaces/auth_repo_interface.dart'
     as _i2;
+import 'package:firebase_auth/firebase_auth.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i5;
+import 'package:mockito/src/dummies.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -31,14 +32,14 @@ import 'package:mockito/src/dummies.dart' as _i5;
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthRepoInterface extends _i1.Mock implements _i2.AuthRepoInterface {
   @override
-  _i3.Future<_i4.Result<dynamic>> loginWithEmailAndPassword(
+  _i3.Future<_i4.Result<_i5.User?>> loginWithEmailAndPassword(
     String? email,
     String? password,
   ) =>
       (super.noSuchMethod(
             Invocation.method(#loginWithEmailAndPassword, [email, password]),
-            returnValue: _i3.Future<_i4.Result<dynamic>>.value(
-              _i5.dummyValue<_i4.Result<dynamic>>(
+            returnValue: _i3.Future<_i4.Result<_i5.User?>>.value(
+              _i6.dummyValue<_i4.Result<_i5.User?>>(
                 this,
                 Invocation.method(#loginWithEmailAndPassword, [
                   email,
@@ -46,8 +47,8 @@ class MockAuthRepoInterface extends _i1.Mock implements _i2.AuthRepoInterface {
                 ]),
               ),
             ),
-            returnValueForMissingStub: _i3.Future<_i4.Result<dynamic>>.value(
-              _i5.dummyValue<_i4.Result<dynamic>>(
+            returnValueForMissingStub: _i3.Future<_i4.Result<_i5.User?>>.value(
+              _i6.dummyValue<_i4.Result<_i5.User?>>(
                 this,
                 Invocation.method(#loginWithEmailAndPassword, [
                   email,
@@ -56,20 +57,20 @@ class MockAuthRepoInterface extends _i1.Mock implements _i2.AuthRepoInterface {
               ),
             ),
           )
-          as _i3.Future<_i4.Result<dynamic>>);
+          as _i3.Future<_i4.Result<_i5.User?>>);
 
   @override
   _i3.Future<_i4.Result<dynamic>> deleteCurrentUser() =>
       (super.noSuchMethod(
             Invocation.method(#deleteCurrentUser, []),
             returnValue: _i3.Future<_i4.Result<dynamic>>.value(
-              _i5.dummyValue<_i4.Result<dynamic>>(
+              _i6.dummyValue<_i4.Result<dynamic>>(
                 this,
                 Invocation.method(#deleteCurrentUser, []),
               ),
             ),
             returnValueForMissingStub: _i3.Future<_i4.Result<dynamic>>.value(
-              _i5.dummyValue<_i4.Result<dynamic>>(
+              _i6.dummyValue<_i4.Result<dynamic>>(
                 this,
                 Invocation.method(#deleteCurrentUser, []),
               ),

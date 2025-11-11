@@ -87,7 +87,7 @@ class _LoginPaneState extends State<_LoginPane> {
 
     try {
       final loginVM = context.read<LoginVM>();
-      final result = await loginVM.login(email, password);
+      final result = await loginVM.loginCommand.execute((email, password));
 
       if (!mounted) return;
 

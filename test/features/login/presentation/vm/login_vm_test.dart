@@ -1,4 +1,5 @@
 import 'package:dia_app/core/utils/result.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:dia_app/features/login/presentation/vm/login_vm.dart';
 import 'package:mockito/mockito.dart';
@@ -11,7 +12,7 @@ void main() {
 
   setUpAll(() {
     // Provide dummy values for Result type
-    provideDummy<Result<dynamic>>(Result.ok(null));
+    provideDummy<Result<User?>>(Result.ok(null));
   });
 
   setUp(() {
@@ -21,16 +22,16 @@ void main() {
 
   group('LoginVM', () {
     test(
-      'WHEN login is called THEN should call auth repository login method',
+      'WHEN loginCommand is called THEN should call auth repository login method',
       () async {
         // Arrange
 
         when(
           mockAuthRepo.loginWithEmailAndPassword(any, any),
-        ).thenAnswer((_) async => Result.ok(true));
+        ).thenAnswer((_) async => Result.ok(null));
 
         // Act
-        await sut.login('email', 'password');
+        await sut.loginCommand.execute(('email', 'password'));
 
         // Assert
         verify(mockAuthRepo.loginWithEmailAndPassword(any, any));
