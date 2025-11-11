@@ -9,7 +9,7 @@ class AuthRepoImpl extends AuthRepoInterface {
   AuthRepoImpl(this._authService);
 
   @override
-  Future<Result> loginWithEmailAndPassword(
+  Future<Result<User?>> loginWithEmailAndPassword(
     String email,
     String password,
   ) async {
