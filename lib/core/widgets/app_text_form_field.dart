@@ -6,11 +6,12 @@ import 'package:flutter/material.dart';
 class AppTextFormField extends StatefulWidget {
   final bool obscureText;
   final String hintText;
-
+  final TextEditingController? controller;
   const AppTextFormField({
+    required this.hintText,
+    this.controller,
     super.key,
     this.obscureText = false,
-    required this.hintText,
   });
 
   @override
@@ -26,6 +27,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: TextFormField(
+        controller: widget.controller,
         obscureText: widget.obscureText,
         maxLines: widget.obscureText ? 1 : null,
         minLines: widget.obscureText ? 1 : null,
