@@ -20,4 +20,10 @@ class LoginVM extends ChangeNotifier {
   Future<void> logout() async {
     await _authRepo.logout();
   }
+
+  @override
+  void dispose() {
+    _loginCommand.dispose();
+    super.dispose();
+  }
 }

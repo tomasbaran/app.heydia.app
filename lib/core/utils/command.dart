@@ -1,3 +1,4 @@
+import 'package:dia_app/core/utils/safe_value_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'result.dart';
@@ -28,17 +29,32 @@ class Command<T, A> {
   Command({required Future<Result<T>> Function(A arg) execute})
     : _execute = execute;
 
-  final _state = ValueNotifier<CommandState<T>>(CommandState.idle());
+  bool _disposed = false;
+
+  final _state = SafeValueNotifier<CommandState<T>>(CommandState.idle());
   ValueNotifier<CommandState<T>> get state => _state;
 
   execute(A arg) async {
+    if (_disposed) return;
     if (state.value is Executing<T>) return;
+
     _state.value = CommandState.executing();
+    // await Future.delayed(const Duration(seconds: 2));
+    // if (_disposed) return;
 
     final result = await _execute(arg);
+    if (_disposed) return;
+
     result.when(
       ok: (value) => _state.value = CommandState.succeeded(value),
       error: (message) => _state.value = CommandState.failed(message),
     );
+  }
+
+  void dispose() {
+    if (!_disposed) {
+      _disposed = true;
+      _state.dispose();
+    }
   }
 }
