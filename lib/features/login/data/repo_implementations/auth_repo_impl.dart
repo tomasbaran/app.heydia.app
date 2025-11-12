@@ -21,11 +21,13 @@ class AuthRepoImpl extends AuthRepoInterface {
       return Result.ok(credential.user);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        return Result.error(ErrorsStrings.userNotFound);
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        return Result.error(ErrorsStrings.wrongPassword);
+      } else if (e.code == 'invalid-email') {
+        return Result.error('${ErrorsStrings.invalidEmail}: $email');
       }
-      return Result.error(ErrorsStrings.failedToLogin + e.toString());
+      return Result.error(ErrorsStrings.failedToLogin);
     }
   }
 

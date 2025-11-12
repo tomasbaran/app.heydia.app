@@ -11,7 +11,6 @@ class _LoginPane extends StatefulWidget {
 class _LoginPaneState extends State<_LoginPane> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -56,14 +55,17 @@ class _LoginPaneState extends State<_LoginPane> {
               controller: _passwordController,
             ),
             SizedBox(height: AppDimensions.space24),
-            // Login Button
-            AppLoginCta(
-              onPressed: _isLoading
-                  ? () {}
-                  : () {
-                      _handleLogin();
-                    },
-              text: AppStrings.login,
+            ValueListenableBuilder<CommandState<User?>>(
+              valueListenable: context.read<LoginVM>().loginCommand.state,
+              builder: (context, loginState, child) {
+                return AppLoginCta(
+                  isLoading: loginState is Executing<User?>,
+                  onPressed: loginState is Executing<User?>
+                      ? () {}
+                      : () => _handleLogin(),
+                  text: AppStrings.login,
+                );
+              },
             ),
           ],
         ),
@@ -71,46 +73,23 @@ class _LoginPaneState extends State<_LoginPane> {
     );
   }
 
-  Future<void> _handleLogin() async {
-    if (_isLoading) return;
-
-    final email = _emailController.text.trim();
-    final password = _passwordController.text;
-
-    if (email.isEmpty || password.isEmpty) {
-      return;
-    }
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    try {
-      final loginVM = context.read<LoginVM>();
-      final result = await loginVM.loginCommand.execute((email, password));
-
-      if (!mounted) return;
-
-      switch (result) {
-        case Ok():
-          // Navigate to home screen on success
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => HomeScreen(loginVM: loginVM)),
-          );
-        case Error(:final message):
-          // Handle error - show a snackbar with error message
-          if (mounted) {
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(message)));
-          }
-      }
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
+  void _handleLogin() async {
+    await context.read<LoginVM>().loginCommand.execute((
+      _emailController.text.trim(),
+      _passwordController.text,
+    ));
+    if (!mounted) return;
+    final loginState = context.read<LoginVM>().loginCommand.state.value;
+    if (loginState is Succeeded<User?>) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (_) => HomeScreen(loginVM: context.read<LoginVM>()),
+        ),
+      );
+    } else if (loginState is Failed<User?>) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(loginState.message)));
     }
   }
 }

@@ -16,6 +16,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
       home: const LoginScreen(),
       // home: HomeScreen(loginVM: LoginVM(AuthRepoImpl(FirebaseAuth.instance))),

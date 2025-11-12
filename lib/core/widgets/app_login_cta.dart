@@ -4,10 +4,16 @@ import 'package:dia_app/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class AppLoginCta extends StatefulWidget {
+  final bool isLoading;
   final VoidCallback onPressed;
   final String text;
 
-  const AppLoginCta({super.key, required this.onPressed, required this.text});
+  const AppLoginCta({
+    super.key,
+    required this.onPressed,
+    required this.text,
+    required this.isLoading,
+  });
 
   @override
   State<AppLoginCta> createState() => _AppLoginCtaState();
@@ -58,7 +64,14 @@ class _AppLoginCtaState extends State<AppLoginCta> {
                   ),
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppDimensions.space8),
-                child: Text(widget.text, style: AppTheme.ctaTitle),
+                child: widget.isLoading
+                    ? const CircularProgressIndicator.adaptive(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          AppColors.neutral0,
+                        ),
+                        backgroundColor: AppColors.neutral0,
+                      )
+                    : Text(widget.text, style: AppTheme.ctaTitle),
               ),
             ),
           ),
