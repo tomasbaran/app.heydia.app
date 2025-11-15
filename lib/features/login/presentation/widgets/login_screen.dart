@@ -6,6 +6,7 @@ import 'package:dia_app/core/theme/app_dimensions.dart';
 import 'package:dia_app/core/theme/app_theme.dart';
 import 'package:dia_app/core/utils/command.dart';
 import 'package:dia_app/core/widgets/app_login_cta.dart';
+import 'package:dia_app/core/widgets/app_snack_bar.dart';
 import 'package:dia_app/core/widgets/app_text_form_field.dart';
 import 'package:dia_app/features/home/presentation/widgets/home_screen.dart';
 import 'package:dia_app/features/login/data/repo_implementations/auth_repo_impl.dart';

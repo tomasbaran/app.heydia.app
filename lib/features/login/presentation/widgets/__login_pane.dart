@@ -87,9 +87,12 @@ class _LoginPaneState extends State<_LoginPane> {
         ),
       );
     } else if (loginState is Failed<User?>) {
-      ScaffoldMessenger.of(
+      AppSnackBar.show(
         context,
-      ).showSnackBar(SnackBar(content: Text(loginState.message)));
+        message: loginState.message,
+        alignment: AppSnackBarAlignment.right,
+        notificationType: AppSnackBarNotificationType.error,
+      );
     }
   }
 }

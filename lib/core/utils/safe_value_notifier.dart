@@ -13,7 +13,7 @@ class SafeValueNotifier<T> extends ValueNotifier<T> {
 
   @override
   void notifyListeners() {
-    if (_disposed) return;  // ← CRITICAL: Prevent notifications after disposal
+    if (_disposed) return; // ← CRITICAL: Prevent notifications after disposal
     super.notifyListeners();
   }
 

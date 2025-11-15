@@ -20,4 +20,10 @@ class AppColors {
   static const Color disabledColor = Colors.red;
   static const Color primaryDevColor = Color.fromARGB(255, 0, 128, 13);
   static const Color secondaryDevColor = Color.fromARGB(255, 255, 215, 16);
+
+  // Notification type colors
+  static const Color errorColor = Color(0xFFDC3545); // Red
+  static const Color warningColor = Color(0xFFFFC107); // Amber/Yellow
+  static const Color successColor = Color(0xFF28A745); // Green
+  static const Color infoColor = Color(0xFF424242); // Neutral grey (same as neutral800)
 }
