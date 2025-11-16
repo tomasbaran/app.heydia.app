@@ -83,7 +83,7 @@ class _LoginPaneState extends State<_LoginPane> {
     if (loginState is Succeeded<User?>) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (_) => HomeScreen(loginVM: context.read<LoginVM>()),
+          builder: (_) => const HomeScreen(),
         ),
       );
     } else if (loginState is Failed<User?>) {

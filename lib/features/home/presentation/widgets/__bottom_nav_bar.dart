@@ -1,10 +1,9 @@
 part of 'home_screen.dart';
 
 class _BottomNavBar extends StatelessWidget {
-  const _BottomNavBar({required this.userEmail, required this.loginVM});
+  const _BottomNavBar({required this.userEmail});
 
   final String userEmail;
-  final LoginVM loginVM;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +37,7 @@ class _BottomNavBar extends StatelessWidget {
             SizedBox(width: AppDimensions.space16),
             AppNavBarItem(
               onTap: () async {
-                await loginVM.logout();
+                await context.read<LoginVM>().logout();
                 // Navigate back to login screen
                 if (context.mounted) {
                   Navigator.of(context).pushReplacement(
