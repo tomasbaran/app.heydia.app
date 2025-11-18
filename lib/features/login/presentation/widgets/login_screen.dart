@@ -1,4 +1,5 @@
 import 'package:dia_app/core/app_config.dart';
+import 'package:dia_app/core/app_dependencies.dart';
 import 'package:dia_app/core/app_strings.dart';
 import 'package:dia_app/core/services/url_service.dart';
 import 'package:dia_app/core/theme/app_colors.dart';
@@ -9,7 +10,6 @@ import 'package:dia_app/core/widgets/app_login_cta.dart';
 import 'package:dia_app/core/widgets/app_snack_bar.dart';
 import 'package:dia_app/core/widgets/app_text_form_field.dart';
 import 'package:dia_app/features/home/presentation/widgets/home_screen.dart';
-import 'package:dia_app/features/login/data/repo_implementations/auth_repo_impl.dart';
 import 'package:dia_app/features/login/presentation/vm/login_vm.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -25,8 +25,9 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<LoginVM>(
-      create: (context) => LoginVM(AuthRepoImpl(FirebaseAuth.instance)),
-      child: _LoginScreenView(),
+      // create: (_) => context.read<AppDependencies>().createLoginVM(),
+      create: (context) => context.read<AppDependencies>().createLoginVM(),
+      child: const _LoginScreenView(),
     );
   }
 }
