@@ -33,7 +33,7 @@ class AuthRepoImpl extends AuthRepoInterface {
 
   @override
   Future<void> logout() async {
-    // TODO: Implement logout
+    await _authService.signOut();
   }
 
   @override
