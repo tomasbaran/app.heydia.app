@@ -8,4 +8,5 @@ abstract class AuthRepoInterface {
   );
   Future<Result> deleteCurrentUser();
   Future<void> logout();
+  Stream<User?> authStateChanges();
 }

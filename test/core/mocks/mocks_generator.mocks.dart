@@ -86,4 +86,13 @@ class MockAuthRepoInterface extends _i1.Mock implements _i2.AuthRepoInterface {
             returnValueForMissingStub: _i3.Future<void>.value(),
           )
           as _i3.Future<void>);
+
+  @override
+  _i3.Stream<_i5.User?> authStateChanges() =>
+      (super.noSuchMethod(
+            Invocation.method(#authStateChanges, []),
+            returnValue: _i3.Stream<_i5.User?>.empty(),
+            returnValueForMissingStub: _i3.Stream<_i5.User?>.empty(),
+          )
+          as _i3.Stream<_i5.User?>);
 }

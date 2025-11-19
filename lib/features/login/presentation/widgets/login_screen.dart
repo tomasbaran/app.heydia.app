@@ -1,5 +1,4 @@
 import 'package:dia_app/core/app_config.dart';
-import 'package:dia_app/core/app_dependencies.dart';
 import 'package:dia_app/core/app_strings.dart';
 import 'package:dia_app/core/services/url_service.dart';
 import 'package:dia_app/core/theme/app_colors.dart';
@@ -24,11 +23,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<LoginVM>(
-      // create: (_) => context.read<AppDependencies>().createLoginVM(),
-      create: (context) => context.read<AppDependencies>().createLoginVM(),
-      child: const _LoginScreenView(),
-    );
+    // LoginVM is now provided at app level, no need to create it here
+    return const _LoginScreenView();
   }
 }
 

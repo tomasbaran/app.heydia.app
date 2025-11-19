@@ -45,4 +45,9 @@ class AuthRepoImpl extends AuthRepoInterface {
       return Result.error(ErrorsStrings.failedToDeleteUser + e.toString());
     }
   }
+
+  @override
+  Stream<User?> authStateChanges() {
+    return _authService.authStateChanges();
+  }
 }

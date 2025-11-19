@@ -1,12 +1,12 @@
 part of 'home_screen.dart';
 
 class _UserPane extends StatelessWidget {
-  const _UserPane({required this.userEmail});
-
-  final String userEmail;
+  const _UserPane();
 
   @override
   Widget build(BuildContext context) {
+    final userEmail = context.watch<LoginVM>().userEmail;
+
     return Container(
       margin: EdgeInsets.only(
         top: AppDimensions.space8,

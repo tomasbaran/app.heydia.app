@@ -1,5 +1,4 @@
 import 'package:dia_app/core/app_config.dart';
-import 'package:dia_app/core/app_dependencies.dart';
 import 'package:dia_app/core/app_strings.dart';
 import 'package:dia_app/core/theme/app_colors.dart';
 import 'package:dia_app/core/theme/app_dimensions.dart';
@@ -20,10 +19,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Refactor to use the LoginVM to get the user email
-    final deps = context.read<AppDependencies>();
-    final user = deps.firebaseAuth.currentUser;
-    final userEmail = user?.email ?? AppStrings.unknownUser;
     final screenSize = MediaQuery.of(context).size;
     final isVerticalLayout = screenSize.height > screenSize.width;
 
@@ -35,16 +30,13 @@ class HomeScreen extends StatelessWidget {
                 // Top Panel - Planner (vertical layout)
                 Expanded(child: _PlannerPane()),
                 // Bottom Navigation Bar (vertical layout)
-                _BottomNavBar(userEmail: userEmail),
+                _BottomNavBar(),
               ],
             )
           : Row(
               children: [
                 // User Panel (horizontal layout)
-                SizedBox(
-                  width: AppDimensions.paneWidth280,
-                  child: _UserPane(userEmail: userEmail),
-                ),
+                SizedBox(width: AppDimensions.paneWidth280, child: _UserPane()),
                 // Right Panel - Planner (horizontal layout)
                 Expanded(child: _PlannerPane()),
               ],

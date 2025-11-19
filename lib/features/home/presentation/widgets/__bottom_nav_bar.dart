@@ -1,12 +1,12 @@
 part of 'home_screen.dart';
 
 class _BottomNavBar extends StatelessWidget {
-  const _BottomNavBar({required this.userEmail});
-
-  final String userEmail;
+  const _BottomNavBar();
 
   @override
   Widget build(BuildContext context) {
+    final userEmail = context.watch<LoginVM>().userEmail;
+
     return Container(
       margin: EdgeInsets.fromLTRB(
         AppDimensions.space8,

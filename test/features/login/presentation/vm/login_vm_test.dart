@@ -17,6 +17,8 @@ void main() {
 
   setUp(() {
     mockAuthRepo = MockAuthRepoInterface();
+    // authStateChanges() emits the current user state immediately on subscription
+    when(mockAuthRepo.authStateChanges()).thenAnswer((_) => Stream.value(null));
     sut = LoginVM(mockAuthRepo);
   });
 
