@@ -10,7 +10,6 @@ import 'package:provider/provider.dart';
 void runMainApp(FirebaseOptions firebaseOptions) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: firebaseOptions);
-  await AppConfig.initialize();
 
   final deps = AppDependencies.prod();
 
@@ -25,16 +24,45 @@ void runMainApp(FirebaseOptions firebaseOptions) async {
   );
 }
 
-class DiaApp extends StatelessWidget {
+class DiaApp extends StatefulWidget {
   const DiaApp({super.key});
 
   @override
+  State<DiaApp> createState() => _DiaAppState();
+}
+
+class _DiaAppState extends State<DiaApp> {
+  late final Future<void> _initializationFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializationFuture = AppConfig.initialize();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.light,
-      home: const LoginScreen(),
-      // home: const HomeScreen(),
+    return FutureBuilder<void>(
+      future: _initializationFuture,
+      builder: (context, snapshot) {
+        // Show a loading indicator while initializing
+        if (snapshot.connectionState != ConnectionState.done) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.light,
+            home: const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            ),
+          );
+        }
+
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.light,
+          home: const LoginScreen(),
+          // home: const HomeScreen(),
+        );
+      },
     );
   }
 }
