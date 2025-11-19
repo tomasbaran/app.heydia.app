@@ -9,7 +9,7 @@ import 'package:dia_app/core/widgets/app_login_cta.dart';
 import 'package:dia_app/core/widgets/app_snack_bar.dart';
 import 'package:dia_app/core/widgets/app_text_form_field.dart';
 import 'package:dia_app/features/home/presentation/widgets/home_screen.dart';
-import 'package:dia_app/features/login/presentation/vm/login_vm.dart';
+import 'package:dia_app/features/login/presentation/vm/auth_vm.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // LoginVM is now provided at app level, no need to create it here
+    // AuthVM is now provided at app level, no need to create it here
     return const _LoginScreenView();
   }
 }

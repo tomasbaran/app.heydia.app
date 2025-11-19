@@ -1,6 +1,6 @@
 import 'package:dia_app/features/login/data/repo_implementations/auth_repo_impl.dart';
 import 'package:dia_app/features/login/domain/repo_interfaces/auth_repo_interface.dart';
-import 'package:dia_app/features/login/presentation/vm/login_vm.dart';
+import 'package:dia_app/features/login/presentation/vm/auth_vm.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 /// Centralized dependency injection container
@@ -30,5 +30,5 @@ class AppDependencies {
     );
   }
 
-  LoginVM createLoginVM() => LoginVM(authRepo);
+  AuthVM createAuthVM() => AuthVM(authRepo);
 }

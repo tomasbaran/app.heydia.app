@@ -5,7 +5,7 @@ class _UserPane extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userEmail = context.watch<LoginVM>().userEmail;
+    final userEmail = context.watch<AuthVM>().userEmail;
 
     return Container(
       margin: EdgeInsets.only(
@@ -55,7 +55,7 @@ class _UserPane extends StatelessWidget {
                 SizedBox(height: AppDimensions.space16),
                 AppPaneButton(
                   onTap: () async {
-                    await context.read<LoginVM>().logout();
+                    await context.read<AuthVM>().logout();
                     // Navigate back to login screen
                     if (context.mounted) {
                       Navigator.of(context).pushReplacement(

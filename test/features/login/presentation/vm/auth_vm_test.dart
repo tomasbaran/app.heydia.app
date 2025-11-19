@@ -1,14 +1,14 @@
 import 'package:dia_app/core/utils/result.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:dia_app/features/login/presentation/vm/login_vm.dart';
+import 'package:dia_app/features/login/presentation/vm/auth_vm.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../../core/mocks/mocks_generator.mocks.dart';
 
 void main() {
   late MockAuthRepoInterface mockAuthRepo;
-  late LoginVM sut;
+  late AuthVM sut;
 
   setUpAll(() {
     // Provide dummy values for Result type
@@ -19,10 +19,10 @@ void main() {
     mockAuthRepo = MockAuthRepoInterface();
     // authStateChanges() emits the current user state immediately on subscription
     when(mockAuthRepo.authStateChanges()).thenAnswer((_) => Stream.value(null));
-    sut = LoginVM(mockAuthRepo);
+    sut = AuthVM(mockAuthRepo);
   });
 
-  group('LoginVM', () {
+  group('AuthVM', () {
     test(
       'WHEN loginCommand is called THEN should call auth repository login method',
       () async {

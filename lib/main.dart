@@ -1,6 +1,7 @@
 import 'package:dia_app/core/app_dependencies.dart';
 import 'package:dia_app/core/theme/app_theme.dart';
-import 'package:dia_app/features/login/presentation/vm/login_vm.dart';
+import 'package:dia_app/features/home/presentation/widgets/home_screen.dart';
+import 'package:dia_app/features/login/presentation/vm/auth_vm.dart';
 import 'package:dia_app/features/login/presentation/widgets/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +16,8 @@ void runMainApp(FirebaseOptions firebaseOptions) async {
   runApp(
     Provider<AppDependencies>.value(
       value: deps,
-      child: ChangeNotifierProvider<LoginVM>(
-        create: (context) => context.read<AppDependencies>().createLoginVM(),
+      child: ChangeNotifierProvider<AuthVM>(
+        create: (context) => context.read<AppDependencies>().createAuthVM(),
         child: const DiaApp(),
       ),
     ),

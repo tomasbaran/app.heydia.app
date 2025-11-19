@@ -56,7 +56,7 @@ class _LoginPaneState extends State<_LoginPane> {
             ),
             SizedBox(height: AppDimensions.space24),
             ValueListenableBuilder<CommandState<User?>>(
-              valueListenable: context.read<LoginVM>().loginCommand.state,
+              valueListenable: context.read<AuthVM>().loginCommand.state,
               builder: (context, loginState, child) {
                 return AppLoginCta(
                   isLoading: loginState is Executing<User?>,
@@ -74,12 +74,12 @@ class _LoginPaneState extends State<_LoginPane> {
   }
 
   void _handleLogin() async {
-    await context.read<LoginVM>().loginCommand.execute((
+    await context.read<AuthVM>().loginCommand.execute((
       _emailController.text.trim(),
       _passwordController.text,
     ));
     if (!mounted) return;
-    final loginState = context.read<LoginVM>().loginCommand.state.value;
+    final loginState = context.read<AuthVM>().loginCommand.state.value;
     if (loginState is Succeeded<User?>) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(

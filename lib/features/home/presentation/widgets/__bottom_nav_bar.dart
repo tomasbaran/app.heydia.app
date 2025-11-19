@@ -5,7 +5,7 @@ class _BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userEmail = context.watch<LoginVM>().userEmail;
+    final userEmail = context.watch<AuthVM>().userEmail;
 
     return Container(
       margin: EdgeInsets.fromLTRB(
@@ -37,7 +37,7 @@ class _BottomNavBar extends StatelessWidget {
             SizedBox(width: AppDimensions.space16),
             AppNavBarItem(
               onTap: () async {
-                await context.read<LoginVM>().logout();
+                await context.read<AuthVM>().logout();
                 // Navigate back to login screen
                 if (context.mounted) {
                   Navigator.of(context).pushReplacement(
