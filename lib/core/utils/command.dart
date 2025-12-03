@@ -24,7 +24,7 @@ sealed class CommandState<T> with _$CommandState<T> {
   }
 }
 
-class Command<T, A> {
+final class Command<T, A> {
   final Future<Result<T>> Function(A arg) _execute;
   Command({required Future<Result<T>> Function(A arg) execute})
     : _execute = execute;
