@@ -3,7 +3,7 @@ import 'package:dia_app/core/utils/result.dart';
 import 'package:dia_app/features/login/domain/repo_interfaces/auth_repo_interface.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthRepoImpl extends AuthRepoInterface {
+class AuthRepoImpl implements AuthRepoInterface {
   final FirebaseAuth _authService;
 
   AuthRepoImpl(this._authService);
