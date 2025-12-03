@@ -1,5 +1,5 @@
 import 'package:dia_app/core/utils/safe_value_notifier.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'result.dart';
 
@@ -32,7 +32,7 @@ final class Command<T, A> {
   bool _disposed = false;
 
   final _state = SafeValueNotifier<CommandState<T>>(CommandState.idle());
-  ValueNotifier<CommandState<T>> get state => _state;
+  ValueListenable<CommandState<T>> get state => _state;
 
   execute(A arg) async {
     if (_disposed) return;
