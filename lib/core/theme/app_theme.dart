@@ -85,6 +85,18 @@ class AppTheme {
         fontWeight: FontWeight.w300,
       );
 
+  static TextStyle get tagline => GoogleFonts.inter(
+    fontSize: 40,
+    fontWeight: FontWeight.w800,
+    color: AppColors.neutral0,
+  );
+
+  static TextStyle get subtitleTagline => GoogleFonts.inter(
+    fontSize: 28,
+    fontWeight: FontWeight.w200,
+    color: AppColors.neutral0,
+  );
+
   static final ThemeData light = ThemeData(
     textTheme: _baseTextTheme.copyWith(
       headlineMedium: headlineMedium,

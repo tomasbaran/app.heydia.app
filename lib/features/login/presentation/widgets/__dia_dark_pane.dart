@@ -40,12 +40,19 @@ class _DiaDarkPaneState extends State<_DiaDarkPane> {
               ),
             ),
             const Spacer(),
-            // Tagline
-            Center(
-              child: Text(
-                AppStrings.tagline,
-                textAlign: TextAlign.center,
-                style: AppTheme.titleMedium,
+            // Tagline and Subtitle
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: AppDimensions.space48),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(AppStrings.tagline, style: AppTheme.tagline),
+                  SizedBox(height: AppDimensions.space16),
+                  Text(
+                    AppStrings.subtitleTagline,
+                    style: AppTheme.subtitleTagline,
+                  ),
+                ],
               ),
             ),
             const Spacer(),
