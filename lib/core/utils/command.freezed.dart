@@ -12,11 +12,17 @@ part of 'command.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$CommandState<T> {
+mixin _$CommandState<T> implements DiagnosticableTreeMixin {
 
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'CommandState<$T>'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -28,7 +34,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'CommandState<$T>()';
 }
 
@@ -186,7 +192,7 @@ return failed(_that.message);case _:
 /// @nodoc
 
 
-class Idle<T> extends CommandState<T> {
+class Idle<T> extends CommandState<T> with DiagnosticableTreeMixin {
   const Idle(): super._();
   
 
@@ -194,6 +200,12 @@ class Idle<T> extends CommandState<T> {
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'CommandState<$T>.idle'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -205,7 +217,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'CommandState<$T>.idle()';
 }
 
@@ -218,7 +230,7 @@ String toString() {
 /// @nodoc
 
 
-class Executing<T> extends CommandState<T> {
+class Executing<T> extends CommandState<T> with DiagnosticableTreeMixin {
   const Executing(): super._();
   
 
@@ -226,6 +238,12 @@ class Executing<T> extends CommandState<T> {
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'CommandState<$T>.executing'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -237,7 +255,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'CommandState<$T>.executing()';
 }
 
@@ -250,7 +268,7 @@ String toString() {
 /// @nodoc
 
 
-class Succeeded<T> extends CommandState<T> {
+class Succeeded<T> extends CommandState<T> with DiagnosticableTreeMixin {
   const Succeeded(this.value): super._();
   
 
@@ -263,6 +281,12 @@ class Succeeded<T> extends CommandState<T> {
 $SucceededCopyWith<T, Succeeded<T>> get copyWith => _$SucceededCopyWithImpl<T, Succeeded<T>>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'CommandState<$T>.succeeded'))
+    ..add(DiagnosticsProperty('value', value));
+}
 
 @override
 bool operator ==(Object other) {
@@ -274,7 +298,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(value));
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'CommandState<$T>.succeeded(value: $value)';
 }
 
@@ -316,7 +340,7 @@ as T,
 /// @nodoc
 
 
-class Failed<T> extends CommandState<T> {
+class Failed<T> extends CommandState<T> with DiagnosticableTreeMixin {
   const Failed(this.message): super._();
   
 
@@ -329,6 +353,12 @@ class Failed<T> extends CommandState<T> {
 $FailedCopyWith<T, Failed<T>> get copyWith => _$FailedCopyWithImpl<T, Failed<T>>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'CommandState<$T>.failed'))
+    ..add(DiagnosticsProperty('message', message));
+}
 
 @override
 bool operator ==(Object other) {
@@ -340,7 +370,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,message);
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'CommandState<$T>.failed(message: $message)';
 }
 
