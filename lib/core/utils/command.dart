@@ -34,7 +34,7 @@ final class Command<T, A> {
   final _state = SafeValueNotifier<CommandState<T>>(CommandState.idle());
   ValueListenable<CommandState<T>> get state => _state;
 
-  execute(A arg) async {
+  Future<void> execute(A arg) async {
     if (_disposed) return;
     if (state.value is Executing<T>) return;
 
