@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dia_app/core/utils/safe_value_notifier.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -54,6 +56,66 @@ final class Command<T, A> {
   void dispose() {
     if (!_disposed) {
       _disposed = true;
+      _state.dispose();
+    }
+  }
+}
+
+final class StreamCommand<T, A> {
+  final Stream<Result<T>> Function(A arg) _watch;
+
+  StreamCommand({required Stream<Result<T>> Function(A arg) watch})
+    : _watch = watch;
+
+  bool _disposed = false;
+  StreamSubscription<Result<T>>? _subscription;
+
+  final _state = SafeValueNotifier<CommandState<T>>(CommandState.idle());
+  ValueListenable<CommandState<T>> get state => _state;
+
+  bool get isActive => _subscription != null && !_disposed;
+
+  void watch(A arg) {
+    if (_disposed) return;
+    if (state.value is Executing<T>) return;
+
+    _state.value = CommandState.executing();
+
+    // Cancel existing subscription if any
+    _subscription?.cancel();
+
+    // Start new subscription
+    _subscription = _watch(arg).listen(
+      (result) {
+        result.when(
+          ok: (value) => _state.value = CommandState.succeeded(value),
+          error: (message) => _state.value = CommandState.failed(message),
+        );
+      },
+      // onError: (error) {
+      //   if (!_disposed) {
+      //     _state.value = Result.error(error.toString());
+      //   }
+      // },
+      onDone: () {
+        _subscription = null;
+      },
+    );
+  }
+
+  void cancel() {
+    _subscription?.cancel();
+    _subscription = null;
+    if (!_disposed) {
+      _state.value = CommandState.idle();
+    }
+  }
+
+  void dispose() {
+    if (!_disposed) {
+      _disposed = true;
+      _subscription?.cancel();
+      _subscription = null;
       _state.dispose();
     }
   }

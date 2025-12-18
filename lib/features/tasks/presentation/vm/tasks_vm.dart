@@ -1,5 +1,4 @@
-import 'dart:async';
-
+import 'package:dia_app/core/utils/command.dart';
 import 'package:dia_app/core/utils/date_utils.dart';
 import 'package:dia_app/features/tasks/domain/entities/item.dart';
 import 'package:dia_app/features/tasks/domain/repo_interfaces/task_repo_interface.dart';
@@ -10,9 +9,16 @@ class TasksVM extends ChangeNotifier {
   final TaskRepoInterface taskRepo;
 
   final Map<DateTime, List<Item>> _dailyTasksMap = {};
-  final Map<DateTime, StreamSubscription<List<Item>>> _subscriptionsMap = {};
+  final Map<DateTime, StreamCommand<List<Item>, DateTime>> _subscriptionsMap =
+      {};
 
   Map<DateTime, List<Item>> get dailyTasks => _dailyTasksMap;
+
+  StreamCommand<List<Item>, DateTime> _watchTasksByDateCommand(DateTime date) =>
+      StreamCommand(watch: (date) => taskRepo.watchTasksByDate(date));
+
+  StreamCommand<List<Item>, DateTime> watchTasksByDateCommand(DateTime date) =>
+      _watchTasksByDateCommand(date);
 
   /// Subscribes to tasks for a specific date
   ///
@@ -24,21 +30,9 @@ class TasksVM extends ChangeNotifier {
     // Cancel existing subscription for this date if any
     _subscriptionsMap[normalizedDate]?.cancel();
 
-    // Subscribe to the stream
-    final subscription = taskRepo
-        .watchTasksByDate(normalizedDate)
-        .listen(
-          (tasks) {
-            _dailyTasksMap[normalizedDate] = tasks;
-            notifyListeners();
-          },
-          onError: (error) {
-            // Handle error - you might want to show a snackbar or log
-            debugPrint('Error watching tasks for $normalizedDate: $error');
-          },
-        );
-
-    _subscriptionsMap[normalizedDate] = subscription;
+    _subscriptionsMap[normalizedDate] = _watchTasksByDateCommand(
+      normalizedDate,
+    );
   }
 
   /// Stops watching tasks for a specific date
