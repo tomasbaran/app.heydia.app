@@ -8,6 +8,9 @@ import 'dart:async' as _i3;
 import 'package:dia_app/core/utils/result.dart' as _i4;
 import 'package:dia_app/features/login/domain/repo_interfaces/auth_repo_interface.dart'
     as _i2;
+import 'package:dia_app/features/tasks/domain/entities/item.dart' as _i8;
+import 'package:dia_app/features/tasks/domain/repo_interfaces/task_repo_interface.dart'
+    as _i7;
 import 'package:firebase_auth/firebase_auth.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i6;
@@ -95,4 +98,19 @@ class MockAuthRepoInterface extends _i1.Mock implements _i2.AuthRepoInterface {
             returnValueForMissingStub: _i3.Stream<_i5.User?>.empty(),
           )
           as _i3.Stream<_i5.User?>);
+}
+
+/// A class which mocks [TaskRepoInterface].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockTaskRepoInterface extends _i1.Mock implements _i7.TaskRepoInterface {
+  @override
+  _i3.Stream<_i4.Result<List<_i8.Item>>> watchTasksByDate(DateTime? date) =>
+      (super.noSuchMethod(
+            Invocation.method(#watchTasksByDate, [date]),
+            returnValue: _i3.Stream<_i4.Result<List<_i8.Item>>>.empty(),
+            returnValueForMissingStub:
+                _i3.Stream<_i4.Result<List<_i8.Item>>>.empty(),
+          )
+          as _i3.Stream<_i4.Result<List<_i8.Item>>>);
 }
