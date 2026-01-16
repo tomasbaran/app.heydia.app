@@ -75,9 +75,17 @@ final class StreamCommand<T, A> {
 
   bool get isActive => _subscription != null && !_disposed;
 
-  void watch(A arg) {
-    if (_disposed) return;
-    if (state.value is Executing<T>) return;
+  StreamSubscription<Result<T>> watch(A arg) {
+    // Defensive check: if disposed, return an empty subscription that immediately completes
+    if (_disposed) {
+      return Stream<Result<T>>.empty().listen(null, onDone: () {});
+    }
+
+    // Defensive check: if already executing, return existing subscription to prevent duplicates
+    // (Alternative: remove this check if you want to allow cancel-and-restart behavior)
+    if (state.value is Executing<T> && _subscription != null) {
+      return _subscription!;
+    }
 
     _state.value = CommandState.executing();
 
@@ -85,8 +93,9 @@ final class StreamCommand<T, A> {
     _subscription?.cancel();
 
     // Start new subscription
-    _subscription = _watch(arg).listen(
+    return _subscription = _watch(arg).listen(
       (result) {
+        if (_disposed) return;
         result.when(
           ok: (value) => _state.value = CommandState.succeeded(value),
           error: (message) => _state.value = CommandState.failed(message),
@@ -107,6 +116,9 @@ final class StreamCommand<T, A> {
     _subscription?.cancel();
     _subscription = null;
     if (!_disposed) {
+      // reset the state to idle
+      // this is to prevent the state from being stuck in executing state
+      // if the stream is not closed
       _state.value = CommandState.idle();
     }
   }
