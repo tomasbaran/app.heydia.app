@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:dia_app/core/utils/command.dart';
 import 'package:dia_app/core/utils/date_utils.dart';
+import 'package:dia_app/core/utils/result.dart';
 import 'package:dia_app/features/tasks/domain/entities/item.dart';
 import 'package:dia_app/features/tasks/domain/repo_interfaces/task_repo_interface.dart';
 import 'package:flutter/foundation.dart';
@@ -9,30 +12,36 @@ class TasksVM extends ChangeNotifier {
   final TaskRepoInterface taskRepo;
 
   final Map<DateTime, List<Item>> _dailyTasksMap = {};
-  final Map<DateTime, StreamCommand<List<Item>, DateTime>> _subscriptionsMap =
-      {};
+  final Map<DateTime, StreamSubscription<Result<List<Item>>>>
+  _subscriptionsMap = {};
 
-  Map<DateTime, List<Item>> get dailyTasks => _dailyTasksMap;
+  Map<DateTime, List<Item>> get loadedDailyTasks => _dailyTasksMap;
 
-  StreamCommand<List<Item>, DateTime> _watchTasksByDateCommand(DateTime date) =>
+  late final StreamCommand<List<Item>, DateTime> _tasksCommandByDate =
       StreamCommand(watch: (date) => taskRepo.watchTasksByDate(date));
 
-  StreamCommand<List<Item>, DateTime> watchTasksByDateCommand(DateTime date) =>
-      _watchTasksByDateCommand(date);
+  StreamCommand<List<Item>, DateTime> get tasksCommandByDate =>
+      _tasksCommandByDate;
 
   /// Subscribes to tasks for a specific date
   ///
-  /// The stream will automatically update [dailyTasks] whenever tasks
+  /// The stream will automatically update [loadedDailyTasks] whenever tasks
   /// are added, updated, or deleted in Firestore.
-  void watchTasksByDate(DateTime date) {
+  ///
+  /// Returns true if a new subscription was started, false if an existing
+  /// subscription was re-used.
+  bool watchTasksByDate(DateTime date) {
     final normalizedDate = DateUtils.normalizeToDay(date);
 
-    // Cancel existing subscription for this date if any
-    _subscriptionsMap[normalizedDate]?.cancel();
+    // Already watching this date → no-op
+    if (_subscriptionsMap[normalizedDate] != null) {
+      return false; // subscription already active
+    }
 
-    _subscriptionsMap[normalizedDate] = _watchTasksByDateCommand(
+    _subscriptionsMap[normalizedDate] = _tasksCommandByDate.watch(
       normalizedDate,
     );
+    return true; // subscription started
   }
 
   /// Stops watching tasks for a specific date
