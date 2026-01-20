@@ -8,4 +8,3 @@ abstract interface class TaskRepoInterface {
   /// updated, or deleted in Firestore.
   Stream<Result<List<Item>>> watchTasksByDate(DateTime date);
 }
-
