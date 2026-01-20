@@ -26,6 +26,9 @@ sealed class CommandState<T> with _$CommandState<T> {
   }
 }
 
+// <Output, Input>
+// Output is the type of the result of the command
+// Input is the type of the argument to the command
 final class Command<T, A> {
   final Future<Result<T>> Function(A arg) _execute;
   Command({required Future<Result<T>> Function(A arg) execute})
@@ -61,6 +64,9 @@ final class Command<T, A> {
   }
 }
 
+// <Output, Input>
+// Output is the type of the result of the command
+// Input is the type of the argument to the command
 final class StreamCommand<T, A> {
   final Stream<Result<T>> Function(A arg) _watch;
 
