@@ -41,6 +41,11 @@ class TasksVM extends ChangeNotifier {
     _subscriptionsMap[normalizedDate] = _tasksCommandByDate.watch(
       normalizedDate,
     );
+
+    _subscriptionsMap[normalizedDate]!.onData((result) {
+      print('result: $result');
+    });
+
     return true; // subscription started
   }
 

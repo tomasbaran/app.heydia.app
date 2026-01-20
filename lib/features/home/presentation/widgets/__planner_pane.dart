@@ -5,6 +5,18 @@ class _PlannerPane extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return ChangeNotifierProvider<TasksVM>(
+      create: (context) => context.read<AppDependencies>().createTasksVM(),
+      child: _PlannerPaneView(),
+    );
+  }
+}
+
+class _PlannerPaneView extends StatelessWidget {
+  const _PlannerPaneView();
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(AppDimensions.space8),
       decoration: BoxDecoration(

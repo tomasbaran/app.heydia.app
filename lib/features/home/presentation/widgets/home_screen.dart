@@ -1,4 +1,5 @@
 import 'package:dia_app/core/app_config.dart';
+import 'package:dia_app/core/app_dependencies.dart';
 import 'package:dia_app/core/app_strings.dart';
 import 'package:dia_app/core/theme/app_colors.dart';
 import 'package:dia_app/core/theme/app_dimensions.dart';
@@ -7,6 +8,7 @@ import 'package:dia_app/core/widgets/app_nav_bar_item.dart';
 import 'package:dia_app/core/widgets/app_pane_button.dart';
 import 'package:dia_app/features/login/presentation/vm/auth_vm.dart';
 import 'package:dia_app/features/login/presentation/widgets/login_screen.dart';
+import 'package:dia_app/features/tasks/presentation/vm/tasks_vm.dart';
 import 'package:dia_app/features/tasks/presentation/widgets/day_column.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
