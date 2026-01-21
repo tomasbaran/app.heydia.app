@@ -24,7 +24,12 @@ class _PlannerPaneView extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(AppDimensions.radius52)),
       ),
       // Free space for future content
-      child: DayColumn(),
+      child: Row(
+        children: [
+          DayColumn(date: DateTime.now().add(const Duration(days: 2))),
+          DayColumn(date: DateTime.now()),
+        ],
+      ),
     );
   }
 }

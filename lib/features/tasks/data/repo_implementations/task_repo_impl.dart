@@ -15,8 +15,8 @@ final class TaskRepoImpl implements TaskRepoInterface {
       streamController.add(
         Result.ok([
           Item.task(
-            id: '1',
-            title: 'Task 1',
+            id: '$date',
+            title: 'Task $date',
             isCompleted: false,
             createdAt: DateTime.now(),
             updatedAt: DateTime.now(),
