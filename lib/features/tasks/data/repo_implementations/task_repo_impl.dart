@@ -9,16 +9,22 @@ final class TaskRepoImpl implements TaskRepoInterface {
 
   @override
   Stream<Result<List<Item>>> watchTasksByDate(DateTime date) {
-    return Stream.value(
-      Result.ok([
-        Item.task(
-          id: '1',
-          title: 'Task 1',
-          isCompleted: false,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-        ),
-      ]),
-    );
+    final streamController = StreamController<Result<List<Item>>>.broadcast();
+
+    streamController.onListen = () {
+      streamController.add(
+        Result.ok([
+          Item.task(
+            id: '1',
+            title: 'Task 1',
+            isCompleted: false,
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+          ),
+        ]),
+      );
+    };
+
+    return streamController.stream;
   }
 }

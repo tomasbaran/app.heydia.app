@@ -113,6 +113,7 @@ final class StreamCommand<T, A> {
       //   }
       // },
       onDone: () {
+        _state.value = CommandState.idle();
         _subscription = null;
       },
     );

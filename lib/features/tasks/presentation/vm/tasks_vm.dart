@@ -11,11 +11,11 @@ class TasksVM extends ChangeNotifier {
   TasksVM({required this.taskRepo});
   final TaskRepoInterface taskRepo;
 
-  final Map<DateTime, List<Item>> _dailyTasksMap = {};
+  // final Map<DateTime, List<Item>> _dailyTasksMap = {};
   final Map<DateTime, StreamSubscription<Result<List<Item>>>>
   _subscriptionsMap = {};
 
-  Map<DateTime, List<Item>> get loadedDailyTasks => _dailyTasksMap;
+  // Map<DateTime, List<Item>> get loadedDailyTasks => _dailyTasksMap;
 
   late final StreamCommand<List<Item>, DateTime> _tasksCommandByDate =
       StreamCommand(watch: (date) => taskRepo.watchTasksByDate(date));
@@ -42,10 +42,6 @@ class TasksVM extends ChangeNotifier {
       normalizedDate,
     );
 
-    _subscriptionsMap[normalizedDate]!.onData((result) {
-      print('result: $result');
-    });
-
     return true; // subscription started
   }
 
@@ -59,7 +55,7 @@ class TasksVM extends ChangeNotifier {
     final normalizedDate = DateUtils.normalizeToDay(date);
     _subscriptionsMap[normalizedDate]?.cancel();
     _subscriptionsMap.remove(normalizedDate);
-    _dailyTasksMap.remove(normalizedDate);
+    // _dailyTasksMap.remove(normalizedDate);
     notifyListeners();
   }
 
