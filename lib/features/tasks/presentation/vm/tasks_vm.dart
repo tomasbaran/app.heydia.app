@@ -11,14 +11,19 @@ class TasksVM extends ChangeNotifier {
   TasksVM({required this.taskRepo});
   final TaskRepoInterface taskRepo;
 
-  // final Map<DateTime, List<Item>> _dailyTasksMap = {};
+  final Map<DateTime, List<Item>> _dailyTasksMap = {};
+  Map<DateTime, List<Item>> get loadedDailyTasks => _dailyTasksMap;
+
   final Map<DateTime, StreamSubscription<Result<List<Item>>>>
   _subscriptionsMap = {};
 
-  // Map<DateTime, List<Item>> get loadedDailyTasks => _dailyTasksMap;
-
   late final StreamCommand<List<Item>, DateTime> _tasksCommandByDate =
-      StreamCommand(watch: (date) => taskRepo.watchTasksByDate(date));
+      StreamCommand(
+        watch: (date) => taskRepo.watchTasksByDate(date),
+        onData: (items, date) {
+          _dailyTasksMap[date] = items;
+        },
+      );
 
   StreamCommand<List<Item>, DateTime> get tasksCommandByDate =>
       _tasksCommandByDate;

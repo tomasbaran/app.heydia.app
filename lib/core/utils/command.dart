@@ -70,8 +70,10 @@ final class Command<T, A> {
 final class StreamCommand<T, A> {
   final Stream<Result<T>> Function(A arg) _watch;
 
-  StreamCommand({required Stream<Result<T>> Function(A arg) watch})
+  StreamCommand({required Stream<Result<T>> Function(A arg) watch, this.onData})
     : _watch = watch;
+
+  final void Function(T value, A arg)? onData;
 
   bool _disposed = false;
   StreamSubscription<Result<T>>? _subscription;
@@ -103,7 +105,10 @@ final class StreamCommand<T, A> {
       (result) {
         if (_disposed) return;
         result.when(
-          ok: (value) => _state.value = CommandState.succeeded(value),
+          ok: (value) {
+            _state.value = CommandState.succeeded(value);
+            onData?.call(value, arg);
+          },
           error: (message) => _state.value = CommandState.failed(message),
         );
       },
