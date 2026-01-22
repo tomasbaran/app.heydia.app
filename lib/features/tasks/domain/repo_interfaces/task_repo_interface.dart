@@ -1,4 +1,3 @@
-import 'package:dia_app/core/utils/result.dart';
 import 'package:dia_app/features/tasks/domain/entities/item.dart';
 
 abstract interface class TaskRepoInterface {
@@ -6,5 +5,5 @@ abstract interface class TaskRepoInterface {
   ///
   /// The stream will emit whenever tasks for the given date are added,
   /// updated, or deleted in Firestore.
-  Stream<Result<List<Item>>> watchTasksByDate(DateTime date);
+  Stream<List<Item>> subscribeToTasksByDate(DateTime date);
 }
