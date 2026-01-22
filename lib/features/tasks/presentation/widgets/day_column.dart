@@ -20,12 +20,13 @@ class _DayColumnState extends State<DayColumn> {
 
   @override
   Widget build(BuildContext context) {
-    return const DayColumnView();
+    return DayColumnView(date: widget.date);
   }
 }
 
 class DayColumnView extends StatelessWidget {
-  const DayColumnView({super.key});
+  const DayColumnView({super.key, required this.date});
+  final DateTime date;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class DayColumnView extends StatelessWidget {
 
     return Expanded(
       child: ValueListenableBuilder(
-        valueListenable: tasksVM.tasksCommandByDate.state,
+        valueListenable: tasksVM.tasksCommandByDate(date).state,
         builder: (context, taskCommandState, child) {
           return taskCommandState.when(
             idle: () => const SizedBox.shrink(),
