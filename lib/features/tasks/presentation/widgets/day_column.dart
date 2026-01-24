@@ -1,4 +1,4 @@
-import 'package:dia_app/core/utils/command.dart';
+import 'package:dia_app/core/utils/dia_date_utils.dart';
 import 'package:dia_app/features/tasks/presentation/vm/tasks_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +15,7 @@ class _DayColumnState extends State<DayColumn> {
   @override
   void initState() {
     super.initState();
-    context.read<TasksVM>().watchTasksByDate(widget.date);
+    context.read<TasksVM>().subscribeToTasksByDate(widget.date);
   }
 
   @override
@@ -30,20 +30,16 @@ class DayColumnView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tasksVM = context.read<TasksVM>();
+    // final tasksVM = context.read<TasksVM>();
 
     return Expanded(
-      child: ValueListenableBuilder(
-        valueListenable: tasksVM.tasksCommandByDate(date).state,
-        builder: (context, taskCommandState, child) {
-          return taskCommandState.when(
-            idle: () => const SizedBox.shrink(),
-            executing: () => const Center(child: CircularProgressIndicator()),
-            succeeded: (data) => ListView.builder(
-              itemCount: data.length,
-              itemBuilder: (context, index) => Text(data[index].title),
-            ),
-            failed: (error) => Center(child: Text(error)),
+      child: Consumer<TasksVM>(
+        builder: (context, tasksVM, child) {
+          final tasks =
+              tasksVM.tasksByDate[DiaDateUtils.normalizeToDay(date)] ?? [];
+          return ListView.builder(
+            itemCount: tasks.length,
+            itemBuilder: (context, index) => Text(tasks[index].title),
           );
         },
       ),
