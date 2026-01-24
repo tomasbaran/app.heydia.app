@@ -105,12 +105,11 @@ class MockAuthRepoInterface extends _i1.Mock implements _i2.AuthRepoInterface {
 /// See the documentation for Mockito's code generation for more information.
 class MockTaskRepoInterface extends _i1.Mock implements _i7.TaskRepoInterface {
   @override
-  _i3.Stream<_i4.Result<List<_i8.Item>>> watchTasksByDate(DateTime? date) =>
+  _i3.Stream<List<_i8.Item>> subscribeToTasksByDate(DateTime? date) =>
       (super.noSuchMethod(
-            Invocation.method(#watchTasksByDate, [date]),
-            returnValue: _i3.Stream<_i4.Result<List<_i8.Item>>>.empty(),
-            returnValueForMissingStub:
-                _i3.Stream<_i4.Result<List<_i8.Item>>>.empty(),
+            Invocation.method(#subscribeToTasksByDate, [date]),
+            returnValue: _i3.Stream<List<_i8.Item>>.empty(),
+            returnValueForMissingStub: _i3.Stream<List<_i8.Item>>.empty(),
           )
-          as _i3.Stream<_i4.Result<List<_i8.Item>>>);
+          as _i3.Stream<List<_i8.Item>>);
 }
