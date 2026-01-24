@@ -26,8 +26,13 @@ class _PlannerPaneView extends StatelessWidget {
       // Free space for future content
       child: Row(
         children: [
-          // DayColumn(date: DateTime.now().add(const Duration(days: 2))),
           DayColumn(date: DateTime.now()),
+          DayColumn(date: DateTime.now().add(const Duration(days: 1))),
+          DayColumn(date: DateTime.now().add(const Duration(days: 2))),
+          DayColumn(date: DateTime.now().add(const Duration(days: 3))),
+          DayColumn(date: DateTime.now().add(const Duration(days: 4))),
+          DayColumn(date: DateTime.now().add(const Duration(days: 5))),
+          DayColumn(date: DateTime.now().add(const Duration(days: 6))),
         ],
       ),
     );
