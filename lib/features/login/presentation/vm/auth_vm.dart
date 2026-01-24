@@ -9,13 +9,21 @@ import 'package:flutter/material.dart';
 class AuthVM extends ChangeNotifier {
   final AuthRepoInterface _authRepo;
   User? _currentUser;
+  bool _authStateReady = false;
   StreamSubscription<User?>? _authStateSubscription;
 
+  /// True after the first [authStateChanges] emission (including restored
+  /// session from persistence). Use to avoid showing LoginScreen before we
+  /// know if the user is already signed in.
+  bool get isAuthStateReady => _authStateReady;
+
   AuthVM(AuthRepoInterface authRepo) : _authRepo = authRepo {
-    // Listen to auth state changes through the repository abstraction
-    // authStateChanges() emits the current user state immediately on subscription
+    // Listen to auth state changes through the repository abstraction.
+    // authStateChanges() emits the current user (or null) once persistence
+    // has been checked—on web this restores the session after a refresh.
     _authStateSubscription = _authRepo.authStateChanges().listen((User? user) {
       _currentUser = user;
+      _authStateReady = true;
       notifyListeners();
     });
   }

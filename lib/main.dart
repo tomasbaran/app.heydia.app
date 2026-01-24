@@ -1,6 +1,7 @@
 import 'package:dia_app/core/app_config.dart';
 import 'package:dia_app/core/app_dependencies.dart';
 import 'package:dia_app/core/theme/app_theme.dart';
+import 'package:dia_app/features/home/presentation/widgets/home_screen.dart';
 import 'package:dia_app/features/login/presentation/vm/auth_vm.dart';
 import 'package:dia_app/features/login/presentation/widgets/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -37,6 +38,9 @@ class _DiaAppState extends State<DiaApp> {
   @override
   void initState() {
     super.initState();
+
+    /// Initialize the version from package info.
+    /// Should be called before any other initialization.
     _initializationFuture = AppConfig.initialize();
   }
 
@@ -59,10 +63,32 @@ class _DiaAppState extends State<DiaApp> {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: AppTheme.light,
-          home: const LoginScreen(),
-          // home: const HomeScreen(),
+          home: const _AuthAwareHome(),
         );
       },
     );
+  }
+}
+
+/// Picks [LoginScreen] vs [HomeScreen] from [AuthVM]. Shows loading until
+/// the first [authStateChanges] emission (so we know if a session was
+/// restored from persistence, e.g. after a web refresh).
+class _AuthAwareHome extends StatelessWidget {
+  const _AuthAwareHome();
+  @override
+  Widget build(BuildContext context) {
+    final authVM = context.watch<AuthVM>();
+
+    switch (authVM.isAuthStateReady) {
+      case false:
+        return const Scaffold(body: Center(child: CircularProgressIndicator()));
+      case true:
+        switch (authVM.currentUser) {
+          case null:
+            return const LoginScreen();
+          default:
+            return const HomeScreen();
+        }
+    }
   }
 }
