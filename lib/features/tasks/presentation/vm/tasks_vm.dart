@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:dia_app/core/utils/date_utils.dart';
+import 'package:dia_app/core/utils/dia_date_utils.dart';
 import 'package:dia_app/features/tasks/domain/entities/item.dart';
 import 'package:dia_app/features/tasks/domain/repo_interfaces/task_repo_interface.dart';
 import 'package:flutter/foundation.dart';
@@ -23,7 +23,7 @@ class TasksVM extends ChangeNotifier {
   /// Returns true if a new subscription was started, false if an existing
   /// subscription was re-used.
   bool subscribeToTasksByDate(DateTime date) {
-    final normalizedDate = DateUtils.normalizeToDay(date);
+    final normalizedDate = DiaDateUtils.normalizeToDay(date);
 
     // Already subscribed to this date → no-op
     if (_tasksSubscriptionsByDate[normalizedDate] != null) {
@@ -46,7 +46,7 @@ class TasksVM extends ChangeNotifier {
   /// - Limiting active subscriptions to save resources
   /// - Implementing a "keep only N dates subscribed" strategy
   void stopWatchingTasksByDate(DateTime date) {
-    final normalizedDate = DateUtils.normalizeToDay(date);
+    final normalizedDate = DiaDateUtils.normalizeToDay(date);
     _tasksSubscriptionsByDate[normalizedDate]?.cancel();
     _tasksSubscriptionsByDate.remove(normalizedDate);
     _tasksByDate.remove(normalizedDate);

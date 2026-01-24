@@ -14,8 +14,8 @@ enum SpecialDay {
 }
 
 /// Utility class for date normalization and manipulation operations.
-class DateUtils {
-  DateUtils._();
+class DiaDateUtils {
+  DiaDateUtils._();
 
   /// Normalizes a [DateTime] to the start of the day (midnight) in local timezone.
   ///
